@@ -1,0 +1,9 @@
+js-drop/node_modules/
+js-drop/test-results/
+js-drop/playwright-report/
+js-drop/blob-report/
+js-drop/playwright/.cache/
+js-drop/test-results/
+js-drop/playwright-report/
+js-drop/blob-report/
+js-drop/playwright/.cache/
