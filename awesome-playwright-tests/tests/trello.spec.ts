@@ -1,5 +1,13 @@
 import { test, expect } from '@playwright/test';
 
+
+
+//call API endpoint to drop DB before every test run
+test.beforeAll(async ({ request }) => {
+  // Clear the database
+  await request.post('http://localhost:3000/api/reset');
+});
+
 test('Create a new board with a list and cards', async ({ page }) => {
   // Load the app
   await page.goto('http://localhost:3000/');
