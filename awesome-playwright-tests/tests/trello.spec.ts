@@ -19,14 +19,21 @@ test('Create a new board with a list and cards', async ({ page }) => {
   await expect(page.locator('[data-cy="list-name"]')).toHaveValue('Todo');
 
   // Add cards to the list
+  // 1st click on "Add another card" is important, it makes the "Enter a title for this card..." input appearing
   await page.getByText('Add another card').click();
   await page.getByPlaceholder('Enter a title for this card...').fill('groceries');
   await page.getByRole('button', { name: 'Add card' }).click();
 
-  await page.getByPlaceholder('Enter a title for this card...').click();
   await page.getByPlaceholder('Enter a title for this card...').fill('lawn');
-  await page.getByPlaceholder('Enter a title for this card...').click();
+  await page.getByRole('button', { name: 'Add card' }).click();
   await page.getByPlaceholder('Enter a title for this card...').fill('dog');
   await page.getByRole('button', { name: 'Add card' }).click();
+  // Assertions to verify three created cards 
+  await expect(page.locator('[data-cy="card-text"]')).toHaveText(
+    ['groceries', 'lawn', 'dog']);
+  // Navigate to the home page
   await page.getByRole('navigation').getByRole('button').click();
+  // assertion home page
+  await expect(page.getByText('My Boards')).toBeVisible();
+  await expect(page.getByText('Chores')).toBeVisible();
 });
